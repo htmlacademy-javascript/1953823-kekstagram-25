@@ -7,12 +7,7 @@ const getRandomInt = function (a, b) {
 getRandomInt(1,6);
 
 const checkLength = function (checkedString, maxLength) {
-  if (checkedString.length <= maxLength) {
-    return true;
-  }
-  else {
-    return false;
-  }
+  return checkedString.length <= maxLength;
 };
 
 checkLength('Проверка', 1);
