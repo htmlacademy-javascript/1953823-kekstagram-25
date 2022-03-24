@@ -79,7 +79,6 @@ const getCommentId = (min, max, number) => {
     }
   }
   return IDS;
-};
 
 const createComment = () => ({
   id: getRandomArrayElement(ID),
