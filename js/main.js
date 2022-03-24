@@ -1,9 +1,3 @@
-const checkLength = function (checkedString, maxLength) {
-  return checkedString.length <= maxLength;
-};
-
-checkLength('Проверка', 1);
-
 const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -85,6 +79,9 @@ const getCommentId = (min, max, number) => {
     }
   }
   return IDS;
+
+const checkLength = function (checkedString, maxLength) {
+  return checkedString.length <= maxLength;
 };
 
 const createComment = () => ({
