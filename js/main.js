@@ -1,9 +1,3 @@
-const checkLength = function (checkedString, maxLength) {
-  return checkedString.length <= maxLength;
-};
-
-checkLength('Проверка', 1);
-
 const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -13,7 +7,7 @@ const getRandomPositiveInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-const generateNumbers = (start, end) => new Array(end - start + 1).fill().map((el) => start++);
+const generateNumbers = (start, end) => new Array(end - start + 1).fill().map(() => start++);
 
 const ID = generateNumbers(1,25);
 
@@ -107,3 +101,5 @@ const createObject = () => ({
 });
 
 const photoDescriptions = Array.from({length: PHOTO_AMOUNT}, createObject);
+
+photoDescriptions();
