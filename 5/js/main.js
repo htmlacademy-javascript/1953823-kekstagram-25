@@ -83,12 +83,9 @@ const PHOTO_AMOUNT = 25;
 
 const getCommentId = (min, max, number) => {
   const IDS = [];
-  for (let i = 0; i < number; i++) {
-    let commentId = getRandomPositiveInteger(min, max);
-    if (IDS.includes(commentId)) {
-      commentId = getRandomPositiveInteger(min,max);
-    }
-    else {
+  while (IDS.length < number) {
+    const commentId = getRandomPositiveInteger(min, max);
+    if (!IDS.includes(commentId)) {
       IDS.push(commentId);
     }
   }
@@ -96,7 +93,7 @@ const getCommentId = (min, max, number) => {
 };
 
 const createComment = () => ({
-  id: getRandomArrayElement(ID),
+  id: getRandomArrayElement(getCommentId(1000, 2000, 100)),
   avatar: `img/avatar-${  getRandomPositiveInteger(1, 6)  }.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES),
@@ -104,14 +101,12 @@ const createComment = () => ({
 
 const SIMILAR_COMMENTS_AMOUNT = 5;
 
-const getCommentsArray =  Array.from({length: SIMILAR_COMMENTS_AMOUNT}, createComment);
-
 const createObject = () => ({
-  id: getRandomArrayElement(getCommentId(1000, 2000, 100)),
+  id: getRandomArrayElement(ID),
   url: `photos/${  getRandomArrayElement(ID)  }.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomPositiveInteger(15, 200),
-  comments: getCommentsArray,
+  comments: Array.from({length: SIMILAR_COMMENTS_AMOUNT}, createComment),
 });
 
 const photoDescriptions = Array.from({length: PHOTO_AMOUNT}, createObject);
