@@ -12,3 +12,10 @@ export function checkLength (checkedString, maxLength) {
 export const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
 export const generateNumbers = (start, end) => new Array(end - start + 1).fill().map(() => start++);
+
+export const getTemplate = function (templateID, contentTag) {
+  const template = document.querySelector(templateID).content;
+  const content = template.querySelector(contentTag);
+  const clonedContent = content.cloneNode(true);
+  return clonedContent;
+};
