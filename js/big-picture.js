@@ -1,5 +1,5 @@
 const bigPicture = document.querySelector('.big-picture');
-const picImage = bigPicture.querySelector('.big-picture__img');
+const picImage = bigPicture.querySelector('.big-picture__img  img');
 const likesNumber = bigPicture.querySelector('.likes-count');
 const comments = bigPicture.querySelector('.comments-count');
 const social = bigPicture.querySelector('.social__comments');
