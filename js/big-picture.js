@@ -1,3 +1,5 @@
+import {toggleVisibleBigPicture} from './util.js';
+
 const bigPicture = document.querySelector('.big-picture');
 const picImage = bigPicture.querySelector('.big-picture__img  img');
 const likesNumber = bigPicture.querySelector('.likes-count');
@@ -28,18 +30,39 @@ const generateCommentList = (src, alt, commentText) => {
 export const openBigPicture = ({description, comments, likes, url}) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  socialComments.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  social.innerHTML = '';
   picImage.src = url;
   socialCaption.textContent = description;
   likesNumber.textContent = likes;
   commentsCount.textContent = comments;
-  comments.forEach((data) => {
+  socialComments.textContent = '';
+  socialComments.textContent = `5 из ${  comments.length} комментариев`;
+  commentsLoader.classList.remove('hidden');
+  if (comments.length <= 5) {
+    socialComments.textContent = `${comments.length} из ${comments.length} комментариев`;
+    commentsLoader.classList.add('hidden');
+  }
+  comments.forEach((data, commentNumber) => {
     const {name, message, avatar} = data;
     const commentNode = generateCommentList(avatar, name, message);
+    if (commentNumber > 4) {
+      commentNode.style.display = 'none';
+      socialComments.textContent = `5 из ${  comments.length} комментариев`;
+    }
     social.append(commentNode);
   });
+  toggleVisibleBigPicture(true, 'hidden');
 };
+
+commentsLoader.addEventListener('click', () => {
+  const elements = social.children;
+  socialComments.textContent = `${elements.length  } из ${  elements.length} комментариев`;
+  for (let i = 0; i < elements.length; i++) {
+    const el = elements[i];
+    el.style.display = 'flex';
+    commentsLoader.classList.add('hidden');
+  }
+});
 
 export const closeBigPictureButton = document.querySelector('.big-picture__cancel  cancel');
 
