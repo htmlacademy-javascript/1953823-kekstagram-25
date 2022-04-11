@@ -26,3 +26,5 @@ export const closeBigPicture = () => {
   body.classList.remove('modal-open');
   bigPicture.classList.add('hidden');
 };
+
+export const isEscapeKey = (evt) => evt.key === 'Escape';
