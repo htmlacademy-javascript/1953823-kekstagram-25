@@ -30,3 +30,5 @@ const closeBigPictureEsc = (evt) => {
 
 document.addEventListener('click', closeBigPictureClick);
 document.addEventListener('keydown', closeBigPictureEsc);
+
+export {closeBigPictureClick, closeBigPictureEsc};
