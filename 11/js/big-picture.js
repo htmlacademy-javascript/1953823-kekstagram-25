@@ -1,3 +1,5 @@
+import {toggleVisibleBigPicture} from './util.js';
+
 const bigPicture = document.querySelector('.big-picture');
 const picImage = bigPicture.querySelector('.big-picture__img  img');
 const likesNumber = bigPicture.querySelector('.likes-count');
@@ -28,19 +30,61 @@ const generateCommentList = (src, alt, commentText) => {
 export const openBigPicture = ({description, comments, likes, url}) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  socialComments.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  social.innerHTML = '';
   picImage.src = url;
   socialCaption.textContent = description;
   likesNumber.textContent = likes;
   commentsCount.textContent = comments;
-  comments.forEach((data) => {
+  socialComments.textContent = '';
+  socialComments.textContent = `5 из ${  comments.length} комментариев`;
+  commentsLoader.classList.remove('hidden');
+  if (comments.length <= 5) {
+    socialComments.textContent = `${comments.length} из ${comments.length} комментариев`;
+    commentsLoader.classList.add('hidden');
+  }
+  comments.forEach((data, commentNumber) => {
     const {name, message, avatar} = data;
     const commentNode = generateCommentList(avatar, name, message);
+    if (commentNumber > 4) {
+      commentNode.style.display = 'none';
+      socialComments.textContent = `5 из ${  comments.length} комментариев`;
+    }
     social.append(commentNode);
   });
+  toggleVisibleBigPicture(true, 'hidden');
 };
 
-export const closeBigPictureButton = document.querySelector('.big-picture__cancel  cancel');
+let i = 5;
+commentsLoader.addEventListener('click', () => {
+  const elements = social.children;
+  if (elements.length-i <= 5) {
+    socialComments.textContent = `${elements.length  } из ${  elements.length} комментариев`;
+    commentsLoader.classList.add('hidden');
+    for (let j=elements.length-i; j>0; j--) {
+      const el = elements[elements.length-j];
+      el.style.display = 'flex';
+    }
+  }
+  else {
+    socialComments.textContent = `${i+5  } из ${  elements.length} комментариев`;
+    const el1 = elements[i];
+    const el2 = elements[i+1];
+    const el3 = elements[i+2];
+    const el4 = elements[i+3];
+    const el5 = elements[i+4];
+    el1.style.display = 'flex';
+    el2.style.display = 'flex';
+    el3.style.display = 'flex';
+    el4.style.display = 'flex';
+    el5.style.display = 'flex';
+  }
+  i+=5;
+});
 
-export {body, bigPicture};
+const closeBigPictureButton = bigPicture.querySelector('.cancel');
+
+closeBigPictureButton.addEventListener('click', () => {
+  i = 5;
+});
+
+export {body, bigPicture, closeBigPictureButton};
