@@ -4,7 +4,6 @@ const sliderElement = document.querySelector('.effect-level__slider');
 const valueSliderElement = document.querySelector('.effect-level__value');
 const effectsList = document.querySelector('.effects__list');
 const effectsLevel = document.querySelector('.effect-level');
-const image = imagePreview.querySelector ('img');
 
 //Создание объекта данных с параметрами эффектов
 const effects = {
@@ -90,16 +89,18 @@ noUiSlider.create(sliderElement, {
 effectsList.addEventListener('change', (evt) => {
   const effect = evt.target.value;
   const effectFilter = effects[effect];
-  image.className = `effects effects__preview--${effect}`;
-  sliderElement.noUiSlider.updateOptions(effectFilter);
+  imagePreview.className = `effects effects__preview--${effect}`;
   if (effect === 'none') {
-    image.style.filter = '';
+    imagePreview.style.filter = '';
     effectsLevel.classList.add('hidden');
   } else {
     effectsLevel.classList.remove('hidden');
   }
+  sliderElement.noUiSlider.updateOptions(effectFilter);
   sliderElement.noUiSlider.on('update', () => {
     valueSliderElement.value = sliderElement.noUiSlider.get();
-    image.style.filter = `${effectFilter.filter}(${valueSliderElement.value}${effectFilter.sign})`;
+    imagePreview.style.filter = `${effectFilter.filter}(${valueSliderElement.value}${effectFilter.sign})`;
   });
 });
+
+export {effectsLevel};

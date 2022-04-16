@@ -28,3 +28,8 @@ export const closeBigPicture = () => {
 };
 
 export const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export const toggleVisibleBigPicture = (flag, className) => {
+  const action = flag ? 'remove': 'add';
+  bigPicture.classList[action](className);
+};

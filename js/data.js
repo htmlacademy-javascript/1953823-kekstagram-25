@@ -10,14 +10,12 @@ const createComment = (_, number) => ({
   name: getRandomArrayElement(NAMES),
 });
 
-const SIMILAR_COMMENTS_AMOUNT = 5;
-
 const createObject = (_, number) => ({
   id: number + 1,
   url: `photos/${number + 1}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomPositiveInteger(15, 200),
-  comments: Array.from({length: SIMILAR_COMMENTS_AMOUNT}, createComment),
+  comments: Array.from({length: getRandomPositiveInteger(1, 35)}, createComment),
 });
 
 const photoDescriptions = Array.from({length: PHOTO_AMOUNT}, createObject);
