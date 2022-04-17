@@ -1,4 +1,6 @@
 import './load-image.js';
+import './scale.js';
+import './effects.js';
 import {photoDescriptions} from './data.js';
 import {generateCard} from './photos.js';
 import {openBigPicture} from './big-picture.js';

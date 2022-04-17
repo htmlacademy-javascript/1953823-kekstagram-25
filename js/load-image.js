@@ -1,5 +1,6 @@
 import {isEscapeKey} from './util.js';
 import {onFormValidation} from './validation.js';
+import {effectsLevel} from './effects.js';
 
 const form = document.querySelector('.img-upload__form');
 const uploadFile = document.querySelector('#upload-file');
@@ -13,6 +14,7 @@ const uploadCancel = document.querySelector('#upload-cancel');
 const onOverlayOpen = () => {
   imageEditing.classList.remove('hidden');
   body.classList.add('modal-open');
+  effectsLevel.classList.add('hidden');
 };
 
 //Закрытие формы редактирования изображения
