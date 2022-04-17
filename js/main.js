@@ -5,16 +5,21 @@ import {photoDescriptions} from './data.js';
 import {generateCard} from './photos.js';
 import {openBigPicture} from './big-picture.js';
 import {closeBigPicture} from './util.js';
+import {getData} from './api.js';
 
 const photosWrapper = document.querySelector('.pictures');
 
-photoDescriptions.forEach((photo) => {
+const renderPictures = photoDescriptions.forEach((photo) => {
   const photoNode = generateCard(photo);
   photoNode.addEventListener('click', () => {
     openBigPicture(photo);
   });
   photosWrapper.append(photoNode);
 });
+
+export const showGallery = () => {
+  getData(renderPictures);
+};
 
 const closeBigPictureClick = (evt) => {
   const element = evt.target;

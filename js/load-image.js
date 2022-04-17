@@ -51,3 +51,5 @@ const uploadFileImage = () => {
 };
 
 uploadFileImage();
+
+export {onCancelClick};
