@@ -13,6 +13,19 @@ export function checkLength (checkedString, maxLength) {
 
 export const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
+export const getRandomUniqueElements = (arr) => {
+
+  const newArray = arr.slice();
+  const elements = [];
+  const newArrayLength = arr.length;
+  for (let i = 0; i < newArrayLength; i++) {
+    const randomId = getRandomPositiveInteger(0, newArray.length- 1);
+    elements.push(newArray[randomId]);
+    newArray.splice(randomId, 1);
+  }
+  return elements;
+};
+
 export const generateNumbers = (start, end) => new Array(end - start + 1).fill().map(() => start++);
 
 export const getTemplate = function (templateID, contentTag) {
@@ -33,3 +46,28 @@ export const toggleVisibleBigPicture = (flag, className) => {
   const action = flag ? 'remove': 'add';
   bigPicture.classList[action](className);
 };
+
+// Функция взята из интернета и доработана
+// Источник - https://www.freecodecamp.org/news/javascript-debounce-example
+
+export function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+// Функция взята из интернета и доработана
+// Источник - https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_throttle
+
+export function throttle (callback, delayBetweenFrames) {
+  let lastTime = 0;
+  return (...rest) => {
+    const now = new Date();
+    if (now - lastTime >= delayBetweenFrames) {
+      callback.apply(this, rest);
+      lastTime = now;
+    }
+  };
+}
