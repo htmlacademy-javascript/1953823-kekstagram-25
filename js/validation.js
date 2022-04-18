@@ -1,12 +1,14 @@
+import {sendData} from './api.js';
+import {showUploadErrorMessage, showSuccessMessage} from './message.js';
+import {onCancelClick} from './load-image.js';
+
 const form = document.querySelector('.img-upload__form');
 const textHashtags = form.querySelector('.text__hashtags');
-const comments = form.querySelector('.text__description');
-const MAX_SYMBOLS = 140;
+const submitBtn = form.querySelector('.img-upload__submit');
 
 const hash1 = 'Хэштег должен начинаться символа # (решётка), строка после решётки должна состоять из букв и чисел (не более 20 символов) и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.';
 const hash2 = 'Нельзя указать больше пяти хэш-тегов';
 const hash3 = 'Один и тот же хэш-тег не может быть использован дважды';
-const hash4 = 'Длина комментария не может составлять больше 140 символов';
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__text',
@@ -42,14 +44,37 @@ const duplicatHashtags = (value) => {
 
 pristine.addValidator(textHashtags, duplicatHashtags, hash3);
 
-const validateComments = () => comments.length <= MAX_SYMBOLS;
+const blockSubmitBtn = () => {
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Загружается';
+};
 
-pristine.addValidator(comments, validateComments, hash4);
+const unblockSubmitBtn = () => {
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Опубликовать';
+};
 
 const onFormValidation = () => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    pristine.validate();
+    const isValid = pristine.validate();
+
+    if (isValid) {
+      blockSubmitBtn();
+      sendData(
+        () => {
+          unblockSubmitBtn();
+          onCancelClick();
+          showSuccessMessage();
+        },
+        () => {
+          unblockSubmitBtn();
+          onCancelClick();
+          showUploadErrorMessage();
+        },
+        new FormData(evt.target),
+      );
+    }
   });
 };
 
