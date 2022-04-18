@@ -19,6 +19,7 @@ const uploadImage = () => {
   scaleInput.value = `${DEFAULT_VALUE}%`;
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
   if (matches) {
+    imagePreview.style.filter = 'none';
     imagePreview.src = URL.createObjectURL(file);
     imagePreview.style.transform = `scale(${(parseInt(scaleInput.value, 10)/100)})`;
   }
