@@ -10,8 +10,6 @@ const createComment = (_, number) => ({
   name: getRandomArrayElement(NAMES),
 });
 
-//const SIMILAR_COMMENTS_AMOUNT = getRandomPositiveInteger(1, 35);
-
 const createObject = (_, number) => ({
   id: number + 1,
   url: `photos/${number + 1}.jpg`,
