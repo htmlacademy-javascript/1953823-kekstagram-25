@@ -1,6 +1,8 @@
+const HASHTAGS_AMOUNT = 5;
+
 import {sendData} from './api.js';
 import {showUploadErrorMessage, showSuccessMessage} from './message.js';
-import {onCancelClick} from './load-image.js';
+import {clickCancel} from './load-image.js';
 
 const form = document.querySelector('.img-upload__form');
 const textHashtags = form.querySelector('.text__hashtags');
@@ -30,19 +32,19 @@ pristine.addValidator(textHashtags, validateHashtags, hash1);
 
 const amountHashtags = (value) => {
   const hashtag = createHashtagsArray(value);
-  const correctAmmount = hashtag.length <= 5;
+  const correctAmmount = hashtag.length <= HASHTAGS_AMOUNT;
   return correctAmmount;
 };
 
 pristine.addValidator(textHashtags, amountHashtags, hash2);
 
-const duplicatHashtags = (value) => {
+const duplicateHashtags = (value) => {
   const hashtag = createHashtagsArray(value);
   const hasUniqueHashtags = hashtag.length === new Set(hashtag).size;
   return hasUniqueHashtags;
 };
 
-pristine.addValidator(textHashtags, duplicatHashtags, hash3);
+pristine.addValidator(textHashtags, duplicateHashtags, hash3);
 
 const blockSubmitBtn = () => {
   submitBtn.disabled = true;
@@ -54,7 +56,7 @@ const unblockSubmitBtn = () => {
   submitBtn.textContent = 'Опубликовать';
 };
 
-const onFormValidation = () => {
+const validateForm = () => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
@@ -64,12 +66,12 @@ const onFormValidation = () => {
       sendData(
         () => {
           unblockSubmitBtn();
-          onCancelClick();
+          clickCancel();
           showSuccessMessage();
         },
         () => {
           unblockSubmitBtn();
-          onCancelClick();
+          clickCancel();
           showUploadErrorMessage();
         },
         new FormData(evt.target),
@@ -78,4 +80,4 @@ const onFormValidation = () => {
   });
 };
 
-export {onFormValidation};
+export {validateForm};
