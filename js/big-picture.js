@@ -1,5 +1,6 @@
 import {toggleVisibleBigPicture} from './util.js';
 
+const body = document.body;
 const bigPicture = document.querySelector('.big-picture');
 const picImage = bigPicture.querySelector('.big-picture__img  img');
 const likesNumber = bigPicture.querySelector('.likes-count');
@@ -8,7 +9,9 @@ const social = bigPicture.querySelector('.social__comments');
 const socialCaption = bigPicture.querySelector('.social__caption');
 const socialComments = bigPicture.querySelector('.social__comment-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
-const body = document.body;
+const closeBigPictureButton = bigPicture.querySelector('.cancel');
+
+let i = 5;
 
 const generateCommentList = (src, alt, commentText) => {
   const comment = document.createElement('li');
@@ -54,7 +57,6 @@ export const openBigPicture = ({description, comments, likes, url}) => {
   toggleVisibleBigPicture(true, 'hidden');
 };
 
-let i = 5;
 commentsLoader.addEventListener('click', () => {
   const elements = social.children;
   if (elements.length-i <= 5) {
@@ -80,8 +82,6 @@ commentsLoader.addEventListener('click', () => {
   }
   i+=5;
 });
-
-const closeBigPictureButton = bigPicture.querySelector('.cancel');
 
 closeBigPictureButton.addEventListener('click', () => {
   i = 5;

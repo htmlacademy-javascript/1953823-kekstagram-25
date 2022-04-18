@@ -37,4 +37,4 @@ const increaseImage = () => {
 // Увеличение изображение по клику
 scaleButtonBigger.addEventListener('click', increaseImage);
 
-export {imagePreview};
+export {imagePreview, scaleInput, DEFAULT_VALUE};

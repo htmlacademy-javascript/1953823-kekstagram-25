@@ -2,11 +2,11 @@ import {getTemplate} from './util.js';
 import {openBigPicture} from './big-picture.js';
 
 const pictureTemplate = getTemplate('#picture', 'a');
-
 const pictureTitle = document.querySelector('.pictures__title');
-pictureTitle.classList.remove('visually-hidden');
-
+const photosWrapper = document.querySelector('.pictures');
 const fragment = document.createDocumentFragment();
+
+pictureTitle.classList.remove('visually-hidden');
 
 export const generateCard = (photo) => {
   const picture = pictureTemplate.cloneNode(true);
@@ -19,8 +19,6 @@ export const generateCard = (photo) => {
   });
   fragment.appendChild(picture);
 };
-
-const photosWrapper = document.querySelector('.pictures');
 
 const renderPictures = (photos) => {
   photos.forEach((photo) => {

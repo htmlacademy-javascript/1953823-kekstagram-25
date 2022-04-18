@@ -14,7 +14,6 @@ export function checkLength (checkedString, maxLength) {
 export const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
 export const getRandomUniqueElements = (arr) => {
-
   const newArray = arr.slice();
   const elements = [];
   const newArrayLength = arr.length;
