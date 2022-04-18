@@ -15,7 +15,7 @@ export const generateCard = (photo) => {
   picture.querySelector('.picture__comments').textContent = photo.comments.length;
   picture.dataset.id = photo.id;
   picture.addEventListener('click', () => {
-    openBigPicture(picture);
+    openBigPicture(photo);
   });
   fragment.appendChild(picture);
 };
