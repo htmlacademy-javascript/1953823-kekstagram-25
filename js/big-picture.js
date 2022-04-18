@@ -1,4 +1,6 @@
-import {toggleVisibleBigPicture} from './util.js';
+const COMMENTS_FRAGMENT_AMOUNT = 5;
+
+import {toggleVisibleBigPicture, closeBigPicture} from './util.js';
 
 const body = document.body;
 const bigPicture = document.querySelector('.big-picture');
@@ -41,14 +43,14 @@ export const openBigPicture = ({description, comments, likes, url}) => {
   socialComments.textContent = '';
   socialComments.textContent = `5 из ${  comments.length} комментариев`;
   commentsLoader.classList.remove('hidden');
-  if (comments.length <= 5) {
+  if (comments.length <= COMMENTS_FRAGMENT_AMOUNT) {
     socialComments.textContent = `${comments.length} из ${comments.length} комментариев`;
     commentsLoader.classList.add('hidden');
   }
   comments.forEach((data, commentNumber) => {
     const {name, message, avatar} = data;
     const commentNode = generateCommentList(avatar, name, message);
-    if (commentNumber > 4) {
+    if (commentNumber > COMMENTS_FRAGMENT_AMOUNT - 1) {
       commentNode.style.display = 'none';
       socialComments.textContent = `5 из ${  comments.length} комментариев`;
     }
@@ -57,9 +59,24 @@ export const openBigPicture = ({description, comments, likes, url}) => {
   toggleVisibleBigPicture(true, 'hidden');
 };
 
+const closeBigPictureClick = (evt) => {
+  const element = evt.target;
+  if (element.closest('.cancel')) {
+    closeBigPicture();
+  }
+};
+
+const closeBigPictureEsc = (evt) => {
+  const key = evt.keyCode;
+  if (key === 27) {
+    closeBigPicture();
+    elementsAmount = 5;
+  }
+};
+
 commentsLoader.addEventListener('click', () => {
   const elements = social.children;
-  if (elements.length-elementsAmount <= 5) {
+  if (elements.length-elementsAmount <= COMMENTS_FRAGMENT_AMOUNT) {
     socialComments.textContent = `${elements.length  } из ${  elements.length} комментариев`;
     commentsLoader.classList.add('hidden');
     for (let j=elements.length-elementsAmount; j>0; j--) {
@@ -68,7 +85,7 @@ commentsLoader.addEventListener('click', () => {
     }
   }
   else {
-    socialComments.textContent = `${elementsAmount+5  } из ${  elements.length} комментариев`;
+    socialComments.textContent = `${elementsAmount+COMMENTS_FRAGMENT_AMOUNT  } из ${  elements.length} комментариев`;
     const el1 = elements[elementsAmount];
     const el2 = elements[elementsAmount+1];
     const el3 = elements[elementsAmount+2];
@@ -80,11 +97,16 @@ commentsLoader.addEventListener('click', () => {
     el4.style.display = 'flex';
     el5.style.display = 'flex';
   }
-  elementsAmount+=5;
+  elementsAmount+=COMMENTS_FRAGMENT_AMOUNT;
 });
 
 closeBigPictureButton.addEventListener('click', () => {
-  elementsAmount = 5;
+  elementsAmount=COMMENTS_FRAGMENT_AMOUNT;
 });
+
+document.addEventListener('click', closeBigPictureClick);
+document.addEventListener('keydown', closeBigPictureEsc);
+
+export {closeBigPictureClick, closeBigPictureEsc};
 
 export {body, bigPicture, closeBigPictureButton};

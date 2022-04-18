@@ -28,22 +28,22 @@ const showErrorMessage = () => {
     removeListeners();
   };
 
-  const onImageEscKeydown = (evt) => {
+  const pressImageEscKeydown = (evt) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       closeErrorMessage();
     }
   };
 
-  keydownListener = onImageEscKeydown;
+  keydownListener = pressImageEscKeydown;
 
-  const onClick = (evt) => {
+  const getClick = (evt) => {
     if (evt.target === errorButton || !evt.target.closest('.error__inner')) {
       closeErrorMessage();
     }
   };
 
-  clickListener = onClick;
+  clickListener = getClick;
   document.addEventListener('keydown', keydownListener);
   document.addEventListener('click', clickListener);
   document.body.appendChild(errorMessage);
@@ -68,22 +68,22 @@ const showSuccessMessage = () => {
     removeListeners();
   };
 
-  const onImageEscKeydown = (evt) => {
+  const pressImageEscKeydown = (evt) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       closeSuccessMessage();
     }
   };
 
-  keydownListener = onImageEscKeydown;
+  keydownListener = pressImageEscKeydown;
 
-  const onClick = (evt) => {
+  const getClick = (evt) => {
     if (evt.target === successButton || !evt.target.closest('.success__inner')) {
       closeSuccessMessage();
     }
   };
 
-  clickListener = onClick;
+  clickListener = getClick;
   document.addEventListener('keydown', keydownListener);
   document.addEventListener('click', clickListener);
   document.body.appendChild(successMessage);

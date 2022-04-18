@@ -1,8 +1,8 @@
+const RANDOM_QUANTITY = 10;
+
 import {renderPictures} from './photos.js';
 import {getRandomUniqueElements, debounce} from './util.js';
 
-
-const RANDOM_QUANTITY = 10;
 const filters = document.querySelector('.img-filters');
 const defaultButton = document.querySelector('#filter-default');
 const randomButton = document.querySelector('#filter-random');
